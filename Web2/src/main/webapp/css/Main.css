@@ -1,0 +1,103 @@
+body{
+    background-color: cornflowerblue;
+}
+
+.header{
+    position: fixed;
+    top: 10%;
+    left: 35%;
+    width: 400px;
+    height: 100px;
+    border-radius: 20px;
+    background-color: rgba(205, 205, 205, 0.6);
+    mix-blend-mode: hard-light;
+    font-family: fantasy;
+    font-size: 20px;
+}
+
+#headerText{
+    left: 32%;
+    top: 10%;
+    position: absolute;
+}
+
+.main {
+    position: fixed;
+    top: 40%;
+    left: 22%;
+    width: 800px;
+    height: 400px;
+    border-radius: 20px;
+    background-color: rgba(205, 205, 205, 0.6);
+    mix-blend-mode: hard-light;
+    font-family: fantasy;
+    font-size: 20px;
+}
+
+.buttonNumber {
+    width: 60px;
+    height: 20px;
+    font-size: 13px;
+    border-radius: 5px;
+    border: none;
+    background-color: rgba(255, 255, 255, 0.8);
+}
+
+.buttonNumber:hover{
+    background-color: darkgrey;
+}
+
+.xRect{
+    margin-left: 40%;
+    position: absolute;
+    top: 15%;
+}
+#yplace {
+    position: absolute;
+    top: 33%;
+    left: 50%;
+}
+
+.yRect{
+    left: 25%;
+    position: absolute;
+    top: 38%;
+}
+.rRect{
+    left: 32%;
+    position: absolute;
+    top: 55%;
+}
+
+.graphics {
+    position: absolute;
+    top: 20%;
+}
+
+
+.checkButton {
+    top: 25%;
+    position: absolute;
+    width: 200px;
+    height: 40px;
+    margin-left: 38%;
+    margin-top: 30%;
+    background-color: rgba(255, 255, 255, 0.85);
+    border-radius: 15px;
+
+    font-family: sans-serif;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 21px;
+    border: none;
+    cursor: pointer;
+    transition-duration: 0.4s;
+    overflow: hidden;
+}
+
+
+.checkButton:hover {
+    background-color: darkgrey;
+}
+
