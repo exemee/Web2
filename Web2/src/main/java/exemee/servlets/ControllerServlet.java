@@ -27,8 +27,7 @@ public class ControllerServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         ServletContext servletContext = getServletContext();
-        Lock locker = new ReentrantLock();
-        locker.lock();
+        lock.lock();
         try{
             List<Query> queries = servletContext.getAttribute("queries") == null ? Collections.synchronizedList(new ArrayList<Query>()) :
                     (List<Query>) servletContext.getAttribute("queries");
@@ -50,7 +49,7 @@ public class ControllerServlet extends HttpServlet {
                 request.getRequestDispatcher("/index.jsp").forward(request, response);
             }
         } finally {
-            locker.unlock();
+            lock.unlock();
         }
 
     }
