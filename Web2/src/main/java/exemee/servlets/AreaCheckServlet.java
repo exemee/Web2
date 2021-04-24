@@ -10,25 +10,20 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.*;
-import java.util.concurrent.locks.Lock;
-import java.util.concurrent.locks.ReentrantLock;
-
 @WebServlet("/check_area")
 public class AreaCheckServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+
+        ServletContext servletContext = getServletContext();
         try {
-            ServletContext servletContext = getServletContext();
-            Lock locker = new ReentrantLock();
-            locker.lock();
-            List<Query> queries = servletContext.getAttribute("queries") == null ? Collections.synchronizedList(new ArrayList<Query>()) :
-                    (List<Query>) servletContext.getAttribute("queries");
-            locker.unlock();
+            List<Query> queries = (List<Query>) servletContext.getAttribute("queries");
             long startTime = System.nanoTime();
             String currentTime = new Date().toString();
             String fromClick = request.getParameter("fromClick");
 
-            if(fromClick == null){
+            if (fromClick == null) {
                 fromClick = "";
             }
             Query query = (Query) request.getAttribute("query");
@@ -53,9 +48,9 @@ public class AreaCheckServlet extends HttpServlet {
     }
 
     private boolean checkArea(double x, double y, double r) {
-        return ((x >= 0 && y <= 0 && x * x + y * y <= r * r ) ||
-                ( x >= 0 && y >= 0 && y <= -x + r/2) ||
-                (x <= 0 && y <= 0 && x >= -r && y >= -r/2));
+        return ((x >= 0 && y <= 0 && x * x + y * y <= r * r) ||
+                (x >= 0 && y >= 0 && y <= -x + r / 2) ||
+                (x <= 0 && y <= 0 && x >= -r && y >= -r / 2));
     }
 
     private boolean checkValues(double x, double y, double r) {
