@@ -9,10 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 @WebServlet("/check_area")
 public class AreaCheckServlet extends HttpServlet {
@@ -20,25 +17,27 @@ public class AreaCheckServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
             ServletContext servletContext = getServletContext();
-            List<Query> queries = servletContext.getAttribute("queries") == null ? new ArrayList<Query>() : (List<Query>) servletContext.getAttribute("queries");
+            List<Query> queries = servletContext.getAttribute("queries") == null ? Collections.synchronizedList(new ArrayList<Query>()) :
+                    Collections.synchronizedList((List<Query>) servletContext.getAttribute("queries"));
             long startTime = System.nanoTime();
             String currentTime = new Date().toString();
-            String xValue = request.getParameter("x").replace(',', '.');
-            if (xValue.length() > 6) {
-                xValue = xValue.substring(0, 6);
-            }
-            double x = Double.parseDouble(xValue);
-            double y = Double.parseDouble(request.getParameter("y"));
-            double r = Double.parseDouble(request.getParameter("r"));
             String fromClick = request.getParameter("fromClick");
+
             if(fromClick == null){
                 fromClick = "";
             }
+            Query query = (Query) request.getAttribute("query");
+            double x = query.getX();
+            double y = query.getY();
+            double r = query.getR();
+
             if (checkValues(x, y, r) || fromClick.equals("1")) {
-                String result = checkArea(x, y, r) ? "<span style='color: #439400'>Попал</span>" : "<span style='color: #94002D'>Не попал</span>";
+                String result = checkArea(x, y, r) ? "Попал" : "Не попал";
                 long endTime = System.nanoTime();
-                String time = (endTime - startTime) / 1000000 + "." + (endTime - startTime) % 1000000;
-                Query query = new Query(x, y, r, currentTime, time, result);
+                String time = "" + (endTime - startTime) / 1000000.0;
+                query.setCurrentTime(currentTime);
+                query.setTime(time);
+                query.setResult(result);
                 queries.add(query);
                 servletContext.setAttribute("queries", queries);
             }

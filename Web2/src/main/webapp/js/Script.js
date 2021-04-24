@@ -17,5 +17,5 @@ function checkXData() {
     }
 }
 function backToIndex(){
-    document.location.href="index.jsp";
+    document.location.href="";
 }

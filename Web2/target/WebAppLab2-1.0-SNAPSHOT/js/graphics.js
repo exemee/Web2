@@ -29,11 +29,11 @@ function getRValue() {
 
     if (rText === undefined) {
         rValue = parseFloat($(".queries").last().find(">:nth-child(3)").text());
-        if(isNaN(rValue)){
+        if (isNaN(rValue)) {
             rValue = DEFAULT_R_VALUE;
         }
     } else {
-        if(!checkR()){
+        if (!checkR()) {
             return null;
         }
     }
@@ -44,7 +44,7 @@ function getYValue() {
     return $('input[name ="y"]').val();
 }
 
-function getXValue(){
+function getXValue() {
     const xText = $('input[name="x"]').val();
     let xValue = parseFloat(xText);
     return xValue;
@@ -61,7 +61,7 @@ function clickPlotHandler(e) {
     const y = e.pageY - offset.top;
     const rValue = getRValue();
 
-    if(rValue!==null) {
+    if (rValue !== null) {
         const xValue = fromSvgToRX(x, rValue);
         const yValue = fromSvgToRY(y, rValue);
         console.log(xValue, yValue, rValue);
@@ -75,16 +75,11 @@ function clickPlotHandler(e) {
                 "fromClick": 1
             },
             success: function () {
-                if (getUrlContext() !== "table.jsp") {
-                    document.location.href = "table.jsp";
-                } else {
-                    document.location.reload();
-                }
+                document.location.reload();
             }
         })
     }
 }
-
 
 
 function drawPointsFromTableData() {
@@ -93,7 +88,7 @@ function drawPointsFromTableData() {
         const x = parseFloat(query.find(">:first-child").text());
         const y = parseFloat(query.find(">:nth-child(2)").text());
         const r = parseFloat(query.find(">:nth-child(3)").text());
-        console.log(x,y,r);
+        console.log(x, y, r);
         const color = query.find(">:nth-child(6) span").css("color");
 
         const existingContent = plot.html();

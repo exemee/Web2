@@ -18,6 +18,12 @@ public class Query {
         this.time = time;
         this.result = result;
     }
+    public Query(double x, double y, double r) {
+        this.x = x;
+        this.y = y;
+        this.r = r;
+    }
+
 
     public double getX() {
         return x;

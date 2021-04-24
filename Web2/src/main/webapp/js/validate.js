@@ -3,6 +3,7 @@ const X_MIN_VALUE = -5;
 
 const R_ELEMENT = $('input[name="r"]');
 const X_ELEMENT = $('input[name="x"]');
+
 function onSubmitClick(e) {
     e.preventDefault();
     if (checkX() && checkY() && checkR()) {
@@ -21,11 +22,7 @@ function onSubmitClick(e) {
                 "fromClick": 0
             },
             success: function () {
-                if (getUrlContext() !== "table.jsp") {
-                    document.location.href = "table.jsp";
-                } else {
-                    document.location.reload();
-                }
+                document.location.reload();
             }
         });
     }

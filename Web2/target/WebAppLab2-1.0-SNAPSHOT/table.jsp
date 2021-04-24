@@ -1,7 +1,8 @@
 <%@ page import="exemee.models.Query" %>
 <%@ page import="java.util.List" %>
+<%@ page import="java.util.Collections" %>
 <%@ page contentType="text/html;charset=UTF-8" %>
-<%List<Query> queries = (List<Query>) application.getAttribute("queries");%>
+<%List<Query> queries = Collections.synchronizedList((List<Query>) application.getAttribute("queries"));%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -17,14 +18,14 @@
             <td>
                 <main class="contentRect animated zoomIn">
                     <a class='photo cross' href='index.jsp'></a>
-                    <div class="tableHead" id="table" >
+                    <div class="tableHead" id="table">
                         <table id="dataTable" style="text-align: center;" class="hide" width="100%">
                             <tr>
                                 <th>X</th>
                                 <th>Y</th>
                                 <th>R</th>
                                 <th>Время запуска</th>
-                                <th>Время работы</th>
+                                <th>Время работы, миллисекунды</th>
                                 <th>Результат</th>
                             </tr>
                             <%
@@ -43,7 +44,12 @@
                                 </td>
                                 <td><%= query.getTime() %>
                                 </td>
-                                <td><%= query.getResult() %>
+                                <td><% if (query.getResult().equals("Попал")) {
+                                    out.println("<span style='color: #439400'>" + query.getResult() + "</span>");
+                                } else {
+                                    out.println("<span style = 'color: #94002D' >" + query.getResult() + "</span >");
+                                }
+                                %>
                                 </td>
                             </tr>
                             <%}%>
