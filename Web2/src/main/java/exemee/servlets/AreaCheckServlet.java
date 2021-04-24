@@ -10,6 +10,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.*;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 
 @WebServlet("/check_area")
 public class AreaCheckServlet extends HttpServlet {
@@ -17,8 +19,11 @@ public class AreaCheckServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
             ServletContext servletContext = getServletContext();
+            Lock locker = new ReentrantLock();
+            locker.lock();
             List<Query> queries = servletContext.getAttribute("queries") == null ? Collections.synchronizedList(new ArrayList<Query>()) :
-                    Collections.synchronizedList((List<Query>) servletContext.getAttribute("queries"));
+                    (List<Query>) servletContext.getAttribute("queries");
+            locker.unlock();
             long startTime = System.nanoTime();
             String currentTime = new Date().toString();
             String fromClick = request.getParameter("fromClick");
