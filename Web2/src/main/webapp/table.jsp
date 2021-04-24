@@ -55,7 +55,7 @@
                             <%}%>
                         </table>
                     </div>
-                    <button onclick="backToIndex()" class="checkButton">Back</button>
+                    <button onclick="backToIndex()" class="checkButton" type="submit">Back</button>
                 </main>
             </td>
         </tr>

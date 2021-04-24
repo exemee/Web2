@@ -17,5 +17,13 @@ function checkXData() {
     }
 }
 function backToIndex(){
-    document.location.href="";
+    $.ajax({
+        type: "GET",
+        url: "controller",
+        data: {
+        },
+        success: function () {
+            document.location.href = "controller";
+        }
+    })
 }

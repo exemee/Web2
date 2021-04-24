@@ -64,7 +64,7 @@ function clickPlotHandler(e) {
     if (rValue !== null) {
         const xValue = fromSvgToRX(x, rValue);
         const yValue = fromSvgToRY(y, rValue);
-        console.log(xValue, yValue, rValue);
+
         $.ajax({
             type: "GET",
             url: "controller",
@@ -72,10 +72,11 @@ function clickPlotHandler(e) {
                 "x": xValue,
                 "y": yValue,
                 "r": rValue,
-                "fromClick": 1
+                "fromClick": "1"
             },
             success: function () {
-                document.location.reload();
+                document.location.href = "controller?x="+xValue+"&y="+yValue+"&r="+rValue;
+                //document.location.reload();
             }
         })
     }

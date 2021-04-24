@@ -31,7 +31,7 @@ public class AreaCheckServlet extends HttpServlet {
             double y = query.getY();
             double r = query.getR();
 
-            if (checkValues(x, y, r) || fromClick.equals("1")) {
+            if (checkValues(x, y, r) /*|| fromClick.equals("1")*/) {
                 String result = checkArea(x, y, r) ? "Попал" : "Не попал";
                 long endTime = System.nanoTime();
                 String time = "" + (endTime - startTime) / 1000000.0;
@@ -41,10 +41,9 @@ public class AreaCheckServlet extends HttpServlet {
                 queries.add(query);
                 servletContext.setAttribute("queries", queries);
             }
-            //request.getRequestDispatcher("table.jsp").forward(request, response);
-            response.sendRedirect(request.getContextPath() + "/table.jsp");
+            request.getRequestDispatcher("table.jsp").forward(request, response);
         } catch (NumberFormatException e) {
-            request.getRequestDispatcher("index.jsp").forward(request, response);
+            request.getRequestDispatcher("/index.jsp").forward(request, response);
         }
     }
 
@@ -55,8 +54,8 @@ public class AreaCheckServlet extends HttpServlet {
     }
 
     private boolean checkValues(double x, double y, double r) {
-        return (x > -5 && x < 5) &&
+        return /*(x > -5 && x < 5) &&
                 Arrays.asList(-2.0, -1.5, -1.0, -0.5, 0, 0.5, 1.0, 1.5, 2.0).contains(y) &&
-                Arrays.asList(1.0, 1.5, 2.0, 2.5, 3.0).contains(r);
+                Arrays.asList(1.0, 1.5, 2.0, 2.5, 3.0).contains(r);*/ true;
     }
 }

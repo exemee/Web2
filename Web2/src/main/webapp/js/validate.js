@@ -19,10 +19,11 @@ function onSubmitClick(e) {
                 "x": x,
                 "y": y,
                 "r": r,
-                "fromClick": 0
+                "fromClick": "0"
             },
             success: function () {
-                document.location.reload();
+
+                //document.location.reload();
             }
         });
     }
