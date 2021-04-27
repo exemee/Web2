@@ -74,15 +74,13 @@ function clickPlotHandler(e) {
                 "r": rValue
             },
             success: function () {
-                console.log("dasdas");
-                console.log(getUrlContext());
-                if (!getUrlContext().startsWith("controller?")) {
-                    document.location.href = "controller?x=" + xValue + "&y=" + yValue + "&r=" + rValue;
-                } else {
-                    // /*x=" + xValue + "&y=" + yValue + "&r=" + rValue + */
-                    document.location.href = "controller?&fromClick=1";
-                    //document.location.reload();
-                }
+
+
+                document.location.href = "controller?&fromClick=1";
+
+                // /*x=" + xValue + "&y=" + yValue + "&r=" + rValue + */
+                //document.location.reload();
+
             }
         })
     }
