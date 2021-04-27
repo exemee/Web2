@@ -71,12 +71,18 @@ function clickPlotHandler(e) {
             data: {
                 "x": xValue,
                 "y": yValue,
-                "r": rValue,
-                "fromClick": "1"
+                "r": rValue
             },
             success: function () {
-                document.location.href = "controller?x="+xValue+"&y="+yValue+"&r="+rValue;
-                //document.location.reload();
+                console.log("dasdas");
+                console.log(getUrlContext());
+                if (!getUrlContext().startsWith("controller?")) {
+                    document.location.href = "controller?x=" + xValue + "&y=" + yValue + "&r=" + rValue;
+                } else {
+                    // /*x=" + xValue + "&y=" + yValue + "&r=" + rValue + */
+                    document.location.href = "controller?&fromClick=1";
+                    //document.location.reload();
+                }
             }
         })
     }
@@ -89,13 +95,11 @@ function drawPointsFromTableData() {
         const x = parseFloat(query.find(">:first-child").text());
         const y = parseFloat(query.find(">:nth-child(2)").text());
         const r = parseFloat(query.find(">:nth-child(3)").text());
-        console.log(x, y, r);
+
         const color = query.find(">:nth-child(6) span").css("color");
 
         const existingContent = plot.html();
         const contentToInsert = `<circle r="4" cx="${fromRToSvgX(x, r)}" cy="${fromRToSvgY(y, r)}" fill="${color}"></circle>`;
-        console.log(contentToInsert);
-        console.log(existingContent);
         plot.html(existingContent + contentToInsert);
     });
 }
